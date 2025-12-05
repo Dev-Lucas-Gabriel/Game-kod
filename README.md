@@ -20,10 +20,15 @@ Este projeto é ideal para quem gosta de jogos retrô, programação ou quer est
 🎮 Como Jogar
 Você controla o personagem na tela.
 Controles Tecla	Ação:
+
 ⬅️ Seta Esquerda	Mover para a esquerda
+
 ➡️ Seta Direita	Mover para a direita
+
 ⬆️ Seta Cima	Mover para cima
+
 ⬇️ Seta Baixo	Mover para baixo
+
 O jogo possui vários inimigos (verdes) que se movimentam automaticamente.
 Seu objetivo é sobreviver, explorar a fase e desviar dos inimigos.
 - M: alterna música (Musica ON/OFF)  
