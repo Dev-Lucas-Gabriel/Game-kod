@@ -6,8 +6,10 @@ from pygame import Rect
 WIDTH, HEIGHT, TILE = 900, 600, 32
 TITLE = "Mini Roguelike"
 
-# ---------- ESTADOS (adicionei STATE_GAME3) ----------
-STATE_MENU, STATE_GAME1, STATE_GAME2, STATE_GAME3, STATE_WIN = "menu", "game1", "game2", "game3", "win"
+# ---------- ESTADOS (adicionei GAME4 e GAME5) ----------
+STATE_MENU, STATE_GAME1, STATE_GAME2, STATE_GAME3, STATE_GAME4, STATE_GAME5, STATE_WIN = \
+    "menu", "game1", "game2", "game3", "game4", "game5", "win"
+
 game_state = STATE_MENU
 music_on, sfx_on = True, True
 
@@ -51,6 +53,34 @@ RAW_MAP3 = [
     "############################",
 ]
 
+# ---------------------- FASE 4 (CAVERNA) ----------------------
+RAW_MAP4 = [
+    "############################",
+    "#...........####...........#",
+    "#..#####...........#####...#",
+    "#...........##.............#",
+    "#..####.....#.....####.....#",
+    "#...........#..............#",
+    "#..#####.........#####.....#",
+    "#....##..........##........#",
+    "#.............#............#",
+    "############################",
+]
+
+# ---------------------- FASE 5 (CASTELO) ----------------------
+RAW_MAP5 = [
+    "#############################",
+    "#....###.............###....#",
+    "#........####..####.........#",
+    "#..#####.............#####..#",
+    "#...........................#",
+    "#..#####...###..###...#####.#",
+    "#..........#......#.........#",
+    "#....###.............###....#",
+    "#.............#.............#",
+    "#############################",
+]
+
 def load_map(raw):
     ROWS, COLS = len(raw), len(raw[0])
     MAP_WIDTH, MAP_HEIGHT = COLS*TILE, ROWS*TILE
@@ -75,7 +105,6 @@ def play_sound(name):
         getattr(sounds, name).play()
     except:
         pass
-
 # ---------------------- SPRITE ----------------------
 class AnimatedSprite:
     def __init__(self, name, pos, frames):
@@ -204,7 +233,6 @@ mouse_pos = (0, 0)
 def on_mouse_move(pos):
     global mouse_pos
     mouse_pos = pos
-
 def draw_rounded_rect(rect: Rect, color, radius=14):
     radius = max(1, min(radius, min(rect.width//2, rect.height//2)))
     inner = rect.inflate(-2*radius, -2*radius)
@@ -278,9 +306,13 @@ def draw_map():
             if game_state == STATE_GAME1:
                 col = (30,70,30) if c=="#" else (120,180,120)
             elif game_state == STATE_GAME2:
-                col = (90,10,10) if c=="#" else (180,50,30)
+                col = (120, 180, 255) if c=="#" else (200, 230, 255)    
             elif game_state == STATE_GAME3:
                 col = (180,140,60) if c=="#" else (240,210,120)
+            elif game_state == STATE_GAME4:
+                col = (60,60,120) if c=="#" else (140,140,200)
+            elif game_state == STATE_GAME5:
+                col = (90,10,10) if c=="#" else (180,50,30)
             else:
                 col = (200,200,220)
 
@@ -306,7 +338,7 @@ def draw():
 
         for b in btns: b.draw()
 
-    elif game_state in (STATE_GAME1,STATE_GAME2,STATE_GAME3):
+    elif game_state in (STATE_GAME1,STATE_GAME2,STATE_GAME3,STATE_GAME4,STATE_GAME5):
         draw_map()
         for e in enemies: e.draw()
         hero.draw()
@@ -322,7 +354,7 @@ def draw():
 def update(dt):
     global game_state
 
-    if game_state not in (STATE_GAME1,STATE_GAME2,STATE_GAME3):
+    if game_state not in (STATE_GAME1,STATE_GAME2,STATE_GAME3,STATE_GAME4,STATE_GAME5):
         return
 
     hero.update(dt)
@@ -350,10 +382,15 @@ def update(dt):
     if (hero.cx,hero.cy)==(DOOR_CX,DOOR_CY):
         try: sounds.win.play()
         except: pass
-        if game_state==STATE_GAME1:
+
+        if game_state == STATE_GAME1:
             set_game2()
-        elif game_state==STATE_GAME2:
+        elif game_state == STATE_GAME2:
             set_game3()
+        elif game_state == STATE_GAME3:
+            set_game4()
+        elif game_state == STATE_GAME4:
+            set_game5()
         else:
             set_win()
 
@@ -361,7 +398,7 @@ def update(dt):
 def on_key_down(key):
     global music_on,sfx_on,game_state
 
-    if game_state in (STATE_GAME1,STATE_GAME2,STATE_GAME3):
+    if game_state in (STATE_GAME1,STATE_GAME2,STATE_GAME3,STATE_GAME4,STATE_GAME5):
         if key==keys.ESCAPE: set_menu()
         elif key==keys.M:
             music_on=not music_on
@@ -386,7 +423,7 @@ def on_mouse_down(pos):
             btns[1].text=f"Audio {'ON' if music_on else 'OFF'}"
         elif btns[2].hit(pos): exit()
 
-    elif game_state in (STATE_GAME1,STATE_GAME2,STATE_GAME3):
+    elif game_state in (STATE_GAME1,STATE_GAME2,STATE_GAME3,STATE_GAME4,STATE_GAME5):
         if game_btns[0].hit(pos):
             music_on=not music_on
             toggle_music()
@@ -448,6 +485,36 @@ def set_game3():
     game_state=STATE_GAME3
     toggle_music()
 
+def set_game4():
+    global game_state, hero, enemies, CURRENT_MAP, ROWS, COLS, OFFSET_X, OFFSET_Y
+    CURRENT_MAP = RAW_MAP4
+    ROWS, COLS, OFFSET_X, OFFSET_Y = load_map(CURRENT_MAP)
+    hero = Hero()
+
+    enemies = []
+    for i in range(14):  # 14 inimigos
+        ex = random.randint(3, COLS - 3)
+        ey = random.randint(1, ROWS - 3)
+        enemies.append( Enemy(ex, ey, Rect(2,1,COLS-4,ROWS-3), speed_factor=3.4 ) )
+
+    game_state = STATE_GAME4
+    toggle_music()
+
+def set_game5():
+    global game_state, hero, enemies, CURRENT_MAP, ROWS, COLS, OFFSET_X, OFFSET_Y
+    CURRENT_MAP = RAW_MAP5
+    ROWS, COLS, OFFSET_X, OFFSET_Y = load_map(CURRENT_MAP)
+    hero = Hero()
+
+    enemies = []
+    for i in range(18):  # 18 inimigos
+        ex = random.randint(3, COLS - 3)
+        ey = random.randint(1, ROWS - 3)
+        enemies.append( Enemy(ex, ey, Rect(2,1,COLS-4,ROWS-3), speed_factor=4.2 ) )
+
+    game_state = STATE_GAME5
+    toggle_music()
+
 def set_menu():
     global game_state
     game_state=STATE_MENU
@@ -458,7 +525,13 @@ def set_win():
 
 def toggle_music():
     if music_on:
-        music.play("bgm")
-        music.set_volume(0.6)
+        try:
+            music.play("bgm")
+            music.set_volume(0.6)
+        except:
+            pass
     else:
-        music.stop()
+        try:
+            music.stop()
+        except:
+            pass
