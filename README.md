@@ -72,16 +72,15 @@ Isso abre a janela do jogo imediatamente.
 Exemplo:
 **cd Documentos**
 3. Clone o repositório:
-**git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git**
-Troque SEU_USUARIO e SEU_REPOSITORIO pelo nome correto do seu GitHub.
+**git clone https://github.com/Dev-Lucas-Gabriel/Game-kod.git**
 4. Entre na pasta do projeto:
 cd SEU_REPOSITORIO
 5. Rode o jogo:
 **python3 -m pgzero game.py**
 Pronto! O jogo funciona igual em qualquer computador.
 🧩 Estrutura do Projeto
-/game.py        → arquivo principal do jogo
+/roguelike.py        → arquivo principal do jogo
 README.md       → este arquivo
-/assets/        → imagens, sons (se houver)
+/assets/        → images, sounds, music
 
 
