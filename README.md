@@ -1,5 +1,5 @@
 🕹️ Pixel Runner 
-Bem-vindo ao Pixel Runner, um jogo simples em Python usando Pygame / Pygame Zero, onde você controla um personagem e precisa desviar ou enfrentar inimigos espalhados pelo cenário.
+Bem-vindo ao Pixel Runner, um jogo simples em Python usando Pygame Zero, onde você controla um personagem e precisa desviar ou enfrentar inimigos espalhados pelo cenário.
 Este projeto é ideal para quem gosta de jogos retrô, programação ou quer estudar lógica de games em Python.
 
 ---
