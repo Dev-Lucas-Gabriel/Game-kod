@@ -404,7 +404,7 @@ def draw():
     else:
         screen.fill((30, 30, 40))
         screen.draw.text("PASSOU TODAS AS FASES!", center=(WIDTH // 2, 180), fontsize=72, color="white")
-        screen.draw.text("VOCÊ VENCEU GUERREIRO", center=(WIDTH // 2, 260), fontsize=48, color="white")
+        screen.draw.text("VOCÊ VENCEU GUERREIRO(A)", center=(WIDTH // 2, 260), fontsize=48, color="white")
         screen.draw.text("APERTE ENTER OU CLIQUE PARA VOLTAR PARA O MENU", center=(WIDTH // 2, 360), fontsize=28, color="white")
 
 
