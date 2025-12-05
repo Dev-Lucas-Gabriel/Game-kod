@@ -4,16 +4,16 @@ import random
 from pygame import Rect
 
 WIDTH, HEIGHT, TILE = 900, 600, 32
-TITLE = "Mini Roguelike"
+TITLE = "PixelRunner"
 
-# ---------- ESTADOS (adicionei GAME4 e GAME5) ----------
+
 STATE_MENU, STATE_GAME1, STATE_GAME2, STATE_GAME3, STATE_GAME4, STATE_GAME5, STATE_WIN = \
     "menu", "game1", "game2", "game3", "game4", "game5", "win"
 
 game_state = STATE_MENU
 music_on, sfx_on = True, True
 
-# ---------------------- FASE 1 ----------------------
+
 RAW_MAP1 = [
     "############################",
     "#....##......#......##.....#",
@@ -26,7 +26,7 @@ RAW_MAP1 = [
     "############################",
 ]
 
-# ---------------------- FASE 2 ----------------------
+
 RAW_MAP2 = [
     "############################",
     "#..........##..............#",
@@ -39,7 +39,7 @@ RAW_MAP2 = [
     "############################",
 ]
 
-# ---------------------- FASE 3 (DESERTO) ----------------------
+
 RAW_MAP3 = [
     "############################",
     "#.............#............#",
@@ -53,7 +53,7 @@ RAW_MAP3 = [
     "############################",
 ]
 
-# ---------------------- FASE 4 (CAVERNA) ----------------------
+
 RAW_MAP4 = [
     "############################",
     "#...........####...........#",
@@ -67,7 +67,7 @@ RAW_MAP4 = [
     "############################",
 ]
 
-# ---------------------- FASE 5 (CASTELO) ----------------------
+
 RAW_MAP5 = [
     "#############################",
     "#....###.............###....#",
@@ -87,7 +87,7 @@ def load_map(raw):
     OFFSET_X, OFFSET_Y = (WIDTH-MAP_WIDTH)//2, (HEIGHT-MAP_HEIGHT)//2
     return ROWS, COLS, OFFSET_X, OFFSET_Y
 
-# MAPA ATUAL
+
 CURRENT_MAP = RAW_MAP1
 ROWS, COLS, OFFSET_X, OFFSET_Y = load_map(CURRENT_MAP)
 DOOR_CX, DOOR_CY = COLS-2, 4
@@ -105,7 +105,7 @@ def play_sound(name):
         getattr(sounds, name).play()
     except:
         pass
-# ---------------------- SPRITE ----------------------
+
 class AnimatedSprite:
     def __init__(self, name, pos, frames):
         self.name,self.x,self.y=name,*pos
@@ -130,7 +130,7 @@ class AnimatedSprite:
     def rect(self):
         return Rect(self.x-16,self.y-16,32,32)
 
-# ---------------------- HERO ----------------------
+
 class Hero:
     def __init__(self):
         self.cx,self.cy=2,2
@@ -175,7 +175,7 @@ class Hero:
     def reset(self):
         self.__init__()
 
-# ---------------------- INIMIGOS ----------------------
+
 class Enemy:
     def __init__(self,cx,cy,rect,speed_factor=1.0):
         self.cx,self.cy=cx,cy
@@ -227,7 +227,7 @@ class Enemy:
     def draw(self):
         self.sprite.draw()
 
-# ---------------------- UI ----------------------
+
 mouse_pos = (0, 0)
 
 def on_mouse_move(pos):
@@ -299,7 +299,7 @@ game_btns=make_game_buttons()
 hero=None
 enemies=[]
 
-# ---------------------- DESENHO ----------------------
+
 def draw_map():
     for y,row in enumerate(CURRENT_MAP):
         for x,c in enumerate(row):
@@ -350,7 +350,7 @@ def draw():
         screen.draw.text("Venceu!",center=(WIDTH//2,260),fontsize=48,color="white")
         screen.draw.text("ENTER ou clique para voltar ao menu",center=(WIDTH//2,360),fontsize=28,color="white")
 
-# ---------------------- UPDATE ----------------------
+
 def update(dt):
     global game_state
 
@@ -359,7 +359,7 @@ def update(dt):
 
     hero.update(dt)
 
-    # ======== MOVIMENTO CONTÍNUO AO SEGURAR TECLAS ========
+
     if not hero.moving:
         if keyboard.left or keyboard.a:
             hero.want_move(-1,0)
@@ -369,7 +369,7 @@ def update(dt):
             hero.want_move(0,-1)
         elif keyboard.down or keyboard.s:
             hero.want_move(0,1)
-    # =======================================================
+
 
     for e in enemies:
         e.update(dt)
@@ -394,7 +394,7 @@ def update(dt):
         else:
             set_win()
 
-# ---------------------- INPUT ----------------------
+
 def on_key_down(key):
     global music_on,sfx_on,game_state
 
@@ -436,7 +436,7 @@ def on_mouse_down(pos):
     elif game_state==STATE_WIN:
         set_menu()
 
-# ---------------------- ESTADOS ----------------------
+
 def set_game1():
     global game_state,hero,enemies,CURRENT_MAP,ROWS,COLS,OFFSET_X,OFFSET_Y
     CURRENT_MAP = RAW_MAP1
@@ -507,7 +507,7 @@ def set_game5():
     hero = Hero()
 
     enemies = []
-    for i in range(18):  # 18 inimigos
+    for i in range(16):  
         ex = random.randint(3, COLS - 3)
         ey = random.randint(1, ROWS - 3)
         enemies.append( Enemy(ex, ey, Rect(2,1,COLS-4,ROWS-3), speed_factor=4.2 ) )
