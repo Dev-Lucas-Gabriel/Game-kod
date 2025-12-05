@@ -1,91 +1,80 @@
-🕹️ Pixel Runner 
-Bem-vindo ao Pixel Runner, um jogo simples em Python usando Pygame Zero, onde você controla um personagem e precisa desviar ou enfrentar inimigos espalhados pelo cenário.
-Este projeto é ideal para quem gosta de jogos retrô, programação ou quer estudar lógica de games em Python.
+🎮 PixelRunner 
+Bem-vindo ao PixelRunner, um jogo estilo mini-roguelike, simples, leve e rápido, criado usando PgZero.
+O objetivo é avançar pelas 5 fases, evitando inimigos e chegando até a porta de saída.
+Um jogo perfeito para aprender lógica de programação, mapas baseados em grid e movimentação suave por interpolação.
 
----
-
-🎮 Gameplay
-
-- O mapa é uma grade (grid) de paredes `#` e chão `.`
-- O herói se move suavemente de célula em célula, com animação de sprite para `idle` e `walk`
-- Existem múltiplos inimigos (slimes) com animação, que se movem aleatoriamente **apenas dentro de seus territórios**
-- Se o herói colidir com um inimigo:
-  - Toca som de dano
-  - O herói muda para estado hurt por um instante
-  - Em seguida ele é resetado para o ponto inicial
-- Ao chegar na porta (tile verde com maçaneta), você vence e aparece a tela de vitória
-
----
+📌 📜 História
+Você é um pequeno aventureiro preso em uma série de salas misteriosas.
+Cada sala possui inimigos patrulhando áreas aleatórias.
+Seu objetivo é chegar até a porta verde em cada fase para fugir e avançar para a próxima.
+Na quinta fase, ao escapar… você vence o jogo! 🎉
 
 🎮 Como Jogar
-Você controla o personagem na tela.
-Controles Tecla	Ação:
-
-⬅️ Seta Esquerda	Mover para a esquerda
-
-➡️ Seta Direita	Mover para a direita
-
-⬆️ Seta Cima	Mover para cima
-
-⬇️ Seta Baixo	Mover para baixo
-
-O jogo possui vários inimigos (verdes) que se movimentam automaticamente.
-Seu objetivo é sobreviver, explorar a fase e desviar dos inimigos.
-- M: alterna música (Musica ON/OFF)  
-- N: alterna efeitos sonoros (Sons ON/OFF)  
-- ESC: volta ao menu principal  
-
-Tela de vitória (STATE_WIN):
-- **ENTER** ou **ESPAÇO**: volta ao **menu**
-
-Menu principal:
-- Botões clicáveis: Iniciar, Audio ON/OFF (liga/desliga música e efeitos juntos), **Sair do jogo**  
-- Dentro do jogo há botões pequenos (HUD) para **Musica ON/OFF**, **Sons ON/OFF** e **Voltar ao início**.
-
----
-
-👾 O que o jogo tem
-✔️ Sistema de Player com movimento livre
-✔️ Inimigos com vida, velocidade e área (Rect)
-✔️ Movimentação automática dos inimigos
-✔️ Loop de jogo estável
-✔️ Código simples e fácil de modificar
-✔️ Feito especialmente para rodar em Pygame Zero
-✔️ Fase 1 com vários inimigos pré-definidos
-
----
-
-📦 Requisitos
-Você precisa ter instalado:
-Python 3
-Pygame
-Pygame Zero (pgzero)
-Instalação (caso precise):
-pip install pygame pgzero
-
---- 
-
-▶️ Como rodar o jogo
-Dentro do diretório do projeto, execute:
-**python3 -m pgzero game.py**
-Se estiver no Windows:
-**py -m pgzero game.py**
-Isso abre a janela do jogo imediatamente.
-🛠️ Como clonar o jogo pelo GitHub
-1. Abra o terminal (cmd, PowerShell, bash, etc.)
-2. Vá até a pasta onde quer salvar
-Exemplo:
-**cd Documentos**
-3. Clone o repositório:
-**git clone https://github.com/Dev-Lucas-Gabriel/Game-kod.git**
-4. Entre na pasta do projeto:
-cd SEU_REPOSITORIO
-5. Rode o jogo:
-**python3 -m pgzero game.py**
-Pronto! O jogo funciona igual em qualquer computador.
-🧩 Estrutura do Projeto
-/roguelike.py        → arquivo principal do jogo
-README.md       → este arquivo
-/assets/        → images, sounds, music
-
+🕹 Movimentação
+Use qualquer um:
+Tecla	Função
+W / ↑	Mover para cima
+S / ↓	Mover para baixo
+A / ←	Mover para esquerda
+D / →	Mover para direita
+A movimentação acontece em grid, com animação suave.
+🔊 Áudio
+No jogo, você pode ligar ou desligar:
+Tecla	Função
+M	Liga/desliga música
+N	Liga/desliga efeitos sonoros (SFX)
+Também existem botões na interface para isso.
+⏪ Voltar ao menu
+Tecla	Função
+ESC	Volta imediatamente ao menu
+📋 Estrutura do Jogo
+✔ 5 Fases jogáveis
+Cada fase possui:
+um mapa próprio
+cores próprias
+número crescente de inimigos
+velocidade maior dos inimigos
+✔ Menu inicial
+Com os botões:
+Iniciar
+Áudio ON/OFF
+Sair do jogo
+✔ Tela de vitória
+Após terminar a fase 5, aparece uma tela especial, e você pode retornar ao menu com:
+ENTER
+SPACE
+clique do mouse
+✔ Inimigos
+Movem-se aleatoriamente dentro de um território específico.
+Velocidade aumenta em cada fase.
+Se encostarem no herói, ele sofre dano (animação “hurt”) e volta ao início da fase.
+✔ Herói
+Animações: idle, walk, hurt
+Sistema de interpolação para movimento suave
+Reinicia automaticamente ao tomar dano
+🛠 Como Instalar e Rodar
+1️⃣ Instale o Python 3 (caso não tenha)
+Baixe em:
+https://www.python.org/downloads/
+2️⃣ Instale o PgZero
+Abra o terminal e execute:
+python3 -m pip install pgzero
+3️⃣ Coloque o arquivo roguelike.py e as pastas images/ e sounds/ no mesmo diretório
+Seu projeto deve ficar assim:
+/PixelRunner
+ ├─ game.py
+ ├─ images/
+ ├─ music/
+ ├─ sounds/
+ └─ README.md
+4️⃣ Rode o jogo
+No terminal, dentro da pasta do projeto:
+pgzrun roguelike.py
+💻 Como Clonar este Jogo pelo GitHub
+Se o projeto estiver no GitHub, qualquer usuário pode clonar assim:
+git clone https://github.com/Dev-Lucas-Gabriel/Game-kod.git
+Entre na pasta:
+cd PixelRunner
+Rode o jogo:
+pgzrun game.py
 
